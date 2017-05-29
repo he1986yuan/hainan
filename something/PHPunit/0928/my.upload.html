@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript">
+    window.onload =function()
+    {
+      var oform =document.getElementsByClassName('form')[0];
+      oform.onsubmit =function()
+      {
+        var formData =new FormData();
+        var xhr;
+        try {
+          xhr = new XMLHttpRequest;
+        } catch (e) {
+          xhr = new ActiveXObject;
+        }
+        console.log(xhr);
+        xhr.open('post','form.php',true);
+        xhr.send(formData);
+
+      }
+    }
+
+    </script>
+  </head>
+  <body>
+    <form action="form.php" method="post">
+  		<p>用户名:<input type="text" name="user" id="user"></p>
+  		<p>密码:<input type="password" name="pass" id="pass"></p>
+  		<p>邮箱:<input type="text" name="email" id="email"></p>
+  		<p><input type='submit' value="提交"></p>
+  	</form>
+
+  </body>
+</html>

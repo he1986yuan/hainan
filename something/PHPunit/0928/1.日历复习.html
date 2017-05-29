@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8"/>
+	<style type="text/css">
+		*{margin:0;padding: 0}
+		body{font-size: 13px}
+		#calendar{width: 330px;margin:0px auto;}
+		#calendar .title{width:100%;height: 30px;line-height:30px;background: #17a4eb;position: relative;}
+		.title div{position: absolute;}
+		.prev{left: 10px}
+		.now{left:40%;}
+		.next{right:10px;}
+		input{height:30px;width:300px;margin:100px 475px 0px;}
+		table{width:100%;border-collapse: collapse;}
+		table th{border:1px solid #ccc;}
+		table td{text-align: center;border:1px solid #ccc;}
+	</style>
+	<script type="text/javascript">
+		var oInput = document.getElementById('input');
+		var flag = true;
+		var oDate = new Date();
+		var year = oDate.getFullYear();
+		var month = oDate.getMonth()+1;
+
+		oInput.onfocus = function(){
+			//动态创建日历
+
+			
+		}
+		function showDate(year,month){
+			if(!flag){
+				//创建日历表格
+				document.createElement('div');
+				div.className = 'title';
+
+				//创建星期
+
+				//创建日期(需要先获得当前月有多少天)
+				if(month==1 3 5 7 8 10 12){
+					var dayNum = 31;
+				}else if(month==4 || 6 9 11){
+					var dayNum = 30;
+				}else if(month==2 && leapYear){
+					var dayNum = 29;
+				}else{
+					var dayNum = 28;
+				}
+				//在将日期显示到td里面，需要先获得当前月的第一天是周几
+				oDate.setFullYear(year);
+				oDate.setMonth(month-1);
+				oDate.setDate(1);
+				//在获得该对象里面的星期数
+				var week = oDate.getDay();
+				//将1号放在下标为1的td中
+				for(var i=0;i<oTds.length;i++){
+					oTds[i+week] = i+1;
+				}
+
+			}
+		}
+		//点击左右月份进行切换
+		prevMonth.onclick = function(){
+			var pMonth = spans[0].innerHTML;
+			if(pMonth==12){
+				showDate(year-1,12);
+			}else{
+				showDate(year,pMonth);
+			}
+		}
+		nextMonth.onclick = function(){
+			var nMonth = spans[3].innerHTML;
+			if(nMonth==1){
+				showDate(year+1,1);
+			}else{
+				showDate(year,nMonth);
+			}			
+		}
+		//获得当前日期红色、后面的显示蓝色
+		var date = new Date().getDate();
+		//拿当前的日期和td里面的每一个td内容比较
+		for(var i=0;i<oTds.length;i++){
+			if(oTds[i].innerHTML == date){
+				oTds[i].className = 'red';
+				var oindex = i; 
+			}
+		}
+		//需求：从今天开始到后面连续7天蓝色
+		for(var i=oindex+1;i<oindex+8){
+
+		}
+		for(var i=6;i<13){
+			6 7 8 9 10 11 12
+		}
+
+		//如果最后一行全部是空的则隐藏
+		for(var i=35;i<42;i++){
+			if(oTds[i].innerHTML != ''){
+				flag = false;
+			}
+		}
+		if(flag){
+			oTds[i].style.display = 'none';
+		}
+
+		//ajax获取服务器的数据,显示到日历中
+		for(var i=0;i<dates.length;i++){
+			for(var j=0;j<oTds.length;j++){
+				if(dates[i]==oTds[j]){
+					//显示促销
+				}
+			}
+		}
+		
+	</script>
+</head>
+<body>
+	<input type="text" id="input">
+	<div id="calendar">
+		<!-- <div class="title">
+			<div class="prev">
+				<span>08</span>月
+			</div>
+			<div class="now">
+				<span>2016</span>年
+				<span>09</span>月
+			</div>
+			<div class="next">
+				<span>10</span>月
+			</div>
+		</div>
+		<table>
+			<thead>
+				<tr>
+					<th>日</th>
+					<th>一</th>
+					<th>二</th>
+					<th>三</th>
+					<th>四</th>
+					<th>五</th>
+					<th>六</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+			</tbody>
+		</table> -->
+	</div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript">
+    function jsonpCallback(result)
+    {
+      alert(result.a);
+      alert(result.b);
+      for (var i in result) {
+        alert(i+":"+result[i]);
+      }
+    }
+
+    </script>
+    <script type="text/javascript" src="http://localhost/ajax/0928/services.php?callback=jsonpCallback"></script>
+  </head>
+  <body>
+
+  </body>
+</html>

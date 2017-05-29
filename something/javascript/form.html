@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript">
+      function validation()
+      {
+        if(document.getEletementById("name").value="":)
+        {
+            alert("姓名不能为空");
+           document.getEletementById("name").focus();
+           return false;
+        }
+        //其他同上验证！
+        if(document.getEletementById("pass").value="":)
+        {
+            alert("密码不能为空");
+           document.getEletementById("pass").focus();
+           return false;
+        }
+
+      }
+</script>
+  </head>
+  <body>
+    <form class="" action="index.html" method="post">
+      <input type="text" name="name"  id="name"value="">
+      <input type="text" name="name"  id="pass">
+      <input type="submit" name="name" value="">
+
+    </form>
+
+
+  </body>
+</html>

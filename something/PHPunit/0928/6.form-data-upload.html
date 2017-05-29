@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		#parent{width:500px;height:30px;border:3px solid #666;}
+		#child{width:0%;height: 30px;background: pink}
+	</style>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+			var oForm = document.getElementsByTagName('form')[0];
+			oForm.onsubmit = function(){
+				//将表单的数据以ajax的形式发送到服务器
+				//先采集输入框的内容
+				// var formData = new FormData(oForm);
+				var formData = new FormData(this);
+				var xhr;
+				try{
+					xhr = new XMLHttpRequest();
+				}catch(e){
+					xhr = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				console.log(xhr);
+				xhr.open('post','form.php',true);
+				xhr.send(formData);
+				//监视上传的进度
+				xhr.upload.onprogress = function(e){
+					//事件对象是用来获得当前上传的大小的
+					var ev = e || window.event;
+					// console.log(ev);
+					//已上传的大小
+					var loaded = ev.loaded;
+					//总的大小
+					var total = ev.total;
+					var percent = Math.floor((loaded / total)*100)+'%'; 
+					document.getElementById('child').style.width = percent;
+					document.getElementById('child').innerHTML = percent;
+					document.getElementById('child').style.textAlign = 'center';
+					if(loaded==total){
+						alert('上传成功');
+					}
+				}
+				xhr.onreadystatechange = function(){
+					if(xhr.readyState==4 && xhr.status==200){
+						alert(xhr.responseText);
+					}
+				}
+				return false;
+			}
+		}
+	</script>
+</head>
+<body>
+	<form action="form.php" method="post">
+		<p>用户名:<input type="text" name="user" id="user"></p>
+		<p>密码:<input type="password" name="pass" id="pass"></p>
+		<p>邮箱:<input type="text" name="email" id="email"></p>
+		<div id="parent">
+			<div id="child"></div>
+		</div>
+		<p>上传头像:<input type="file" name="userpic"></p>
+		<p><input type='submit' value="提交"></p>
+	</form>
+</body>
+</html>

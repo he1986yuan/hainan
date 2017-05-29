@@ -1,0 +1,1034 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>AJAX 跨域请求 - JSONP获取JSON数据 - Just Code - ITeye技术网站</title>
+    <meta name="description" content="Asynchronous JavaScript and XML (Ajax  ) 是驱动新一代 Web 站点（流行术语为 Web 2.0 站点）的关键技术。Ajax 允许在不干扰 Web 应用程序的显示和行为的情况下在后台进行数据检索。使用 XMLHttpRequest   函数获取数据，它是一种 API，允许客户端 JavaScript 通过 HTTP 连接到远程服务器。Ajax 也是许多 mas ..." />
+    <meta name="keywords" content=" AJAX 跨域请求 - JSONP获取JSON数据" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="search" type="application/opensearchdescription+xml" href="/open_search.xml" title="ITeye" />
+    <link href="/rss" rel="alternate" title="Just Code" type="application/rss+xml" />
+    <link href="http://www.iteye.com/stylesheets/blog.css?1470389668" media="screen" rel="stylesheet" type="text/css" />
+<link href="http://www.iteye.com/stylesheets/themes/blog/green.css?1448702469" media="screen" rel="stylesheet" type="text/css" />
+    <script src="http://www.iteye.com/javascripts/application.js?1448702469" type="text/javascript"></script>
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-535605-1']);
+  _gaq.push(['_setDomainName', 'iteye.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+      <link href="http://www.iteye.com/javascripts/syntaxhighlighter/SyntaxHighlighter.css?1448702469" media="screen" rel="stylesheet" type="text/css" />
+  <script src="http://www.iteye.com/javascripts/syntaxhighlighter/shCoreCommon.js?1448702469" type="text/javascript"></script>
+<script src="http://www.iteye.com/javascripts/hotkey.js?1448702469" type="text/javascript"></script>
+  <script src="http://www.iteye.com/javascripts/code_favorites.js?1448702469" type="text/javascript"></script>
+<script src="http://www.iteye.com/javascripts/weiboshare.js?1448702469" type="text/javascript"></script>
+
+  </head>
+  <body>
+    <div id="header">
+	      <div id="blog_site_nav">
+  <a href="http://www.iteye.com/" class="homepage">首页</a>
+  <a href="http://www.iteye.com/news">资讯</a>
+  <a href="http://www.iteye.com/magazines">精华</a>
+  <a href="http://www.iteye.com/forums">论坛</a>
+  <a href="http://www.iteye.com/ask">问答</a>
+  <a href="http://www.iteye.com/blogs">博客</a>
+  <a href="http://www.iteye.com/blogs/subjects">专栏</a>
+  <a href="http://www.iteye.com/groups">群组</a>
+  <a href="#" onclick="return false;" id="msna"><u>更多</u> <small>▼</small></a>
+  <div class="quick_menu" style="display:none;">
+    <a target="_blank" href="http://job.iteye.com/iteye">知识库</a>
+    <a href="http://www.iteye.com/search">搜索</a>
+  </div>
+</div>
+
+	      <div id="user_nav">
+      <a href="/login" class="welcome" title="登录">您还未登录 !</a>
+    <a href="/login">登录</a>
+    <a href="/signup" class="nobg">注册</a>
+  </div>
+
+
+    </div>
+
+    <div id="page">
+        <div id="branding" class="clearfix" style="overflow: hidden;background: none;padding:0 0 2px;">
+        	<ins data-revive-zoneid="184" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+        </div>
+      <div id="branding" class="clearfix">
+        <div id="blog_name">
+          <h1><a href="/">Just Code</a></h1>
+        </div>
+        <div id='fd'></div>
+        <div id="blog_navbar">
+          <ul>
+            <li class='blog_navbar_for'><a href="http://justcoding.iteye.com"><strong>博客</strong></a></li>
+            <li ><a href="/weibo">微博</a></li>
+            <li ><a href="/album">相册</a></li>
+            <li ><a href="/link">收藏</a></li>
+            <li ><a href="/blog/guest_book">留言</a></li>
+            <li ><a href="/blog/profile">关于我</a></li>
+          </ul>
+
+          <div class="search">
+            <form action="/blog/search" method="get">
+              <input class="search_text" id="query" name="query" style="margin-left: 10px;width: 110px;" type="text" value="" />
+              <input class="submit_search" type="submit" value="" />
+            </form>
+          </div>
+          <div id="fd"></div>
+        </div>
+      </div>
+      <div>
+      <script type="text/javascript"><!--
+      google_ad_client = "ca-pub-4263087975986867";
+      google_ad_slot = "4638259239";
+      google_ad_width = 728;
+      google_ad_height = 90;
+      //--></script>
+      <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+      </script>
+    </div>
+      <div id="content" class="clearfix">
+        <div id="main">
+
+
+
+
+
+
+
+<div class="h-entry" style='display:none'>
+  <a href="http://justcoding.iteye.com" class="p-author" target="_blank">天梯梦</a>
+</div>
+
+
+<div class="blog_main">
+  <div class="blog_title">
+    <h3>
+      <a href="/blog/1366102">AJAX 跨域请求 - JSONP获取JSON数据</a>
+      <em class="actions">      </em>
+    </h3>
+    <ul class='blog_categories'><strong>博客分类：</strong> <li><a href="/category/89135">Javascript /Jquery / Bootstrap / Web</a></li> </ul>
+        <div class='news_tag'>&nbsp;</div>
+
+
+
+
+      </div>
+
+  <div id="blog_content" class="blog_content">
+    <p>Asynchronous JavaScript and XML (<strong>Ajax</strong>
+) 是驱动新一代 Web 站点（流行术语为 Web 2.0 站点）的关键技术。Ajax 允许在不干扰 Web 应用程序的显示和行为的情况下在后台进行数据检索。使用 <code>XMLHttpRequest</code>
+ 函数获取数据，它是一种 API，允许客户端 JavaScript 通过 HTTP 连接到远程服务器。Ajax 也是许多 mashup 的驱动力，它可将来自多个地方的内容集成为单一 Web 应用程序。</p>
+<p> </p>
+<p>不过，由于受到浏览器的限制，该方法不允许跨域通信。如果尝试从不同的域请求数据，会出现安全错误。如果能控制数
+据驻留的远程服务器并且每个请求都前往同一域，就可以避免这些安全错误。但是，如果仅停留在自己的服务器上，Web
+应用程序还有什么用处呢？如果需要从多个第三方服务器收集数据时，又该怎么办？</p>
+<p> </p>
+<p><a name="same_origin_policy"><strong>理解同源策略限制</strong>
+
+</a>
+</p>
+<p>同源策略阻止从一个域上加载的脚本获取或操作另一个域上的文档属性。也就是说，受到请求的 URL
+的域必须与当前 Web 页面的域相同。这意味着浏览器隔离来自不同源的内容，以防止它们之间的操作。这个浏览器策略很旧，从 Netscape
+Navigator 2.0 版本开始就存在。  </p>
+<p> </p>
+<p>克服该限制的一个相对简单的方法是让 Web 页面向它源自的 Web 服务器请求数据，并且让 Web
+服务器像代理一样将请求转发给真正的第三方服务器。尽管该技术获得了普遍使用，但它是不可伸缩的。另一种方式是使用框架要素在当前 Web
+页面中创建新区域，并且使用 <code>GET</code>
+ 请求获取任何第三方资源。不过，获取资源后，框架中的内容会受到同源策略的限制。</p>
+<p> </p>
+<p>克服该限制更理想方法是在 Web 页面中插入动态脚本元素，该页面源指向其他域中的服务 URL
+并且在自身脚本中获取数据。脚本加载时它开始执行。该方法是可行的，因为同源策略不阻止动态脚本插入，并且将脚本看作是从提供 Web
+页面的域上加载的。但如果该脚本尝试从另一个域上加载文档，就不会成功。幸运的是，通过添加 JavaScript Object Notation
+(JSON) 可以改进该技术。</p>
+<p> </p>
+<p><strong>1、什么是JSONP？</strong>
+</p>
+<p> </p>
+<p>要了解JSONP，不得不提一下JSON，那么什么是<a href="http://www.json.org/">JSON</a>
+？</p>
+<blockquote>
+<p>
+JSON is a subset of the object literal notation of JavaScript. Since
+JSON is a subset of JavaScript, it can be used in the language with no
+muss or fuss.
+</p>
+</blockquote>
+<p>JSONP(JSON with Padding)是一个非官方的协议，它允许在服务器端集成Script tags返回至客户端，通过javascript callback的形式实现跨域访问（这仅仅是JSONP简单的实现形式）。</p>
+<p> </p>
+<p><strong>2、JSONP有什么用？</strong>
+</p>
+<p>由于同源策略的限制，XmlHttpRequest只允许请求当前源（域名、协议、端口）的资源，为了实现跨域请求，可以通过script标签实现跨域请求，然后在服务端输出JSON数据并执行回调函数，从而解决了跨域的数据请求。</p>
+<p> </p>
+<p><strong>3、如何使用JSONP？</strong>
+</p>
+<p>下边这一DEMO实际上是JSONP的简单表现形式，在客户端声明回调函数之后，客户端通过script标签向服务器跨域请求数据，然后服务端返回相应的数据并动态执行回调函数。</p>
+<p> </p>
+<p>HTML代码 （<span style="color: #ff0000;"><span style="background-color: #ffff99;">任一</span>
+</span>
+）：</p>
+<p> </p>
+<pre class="html" name="code">&lt;meta content="text/html; charset=utf-8" http-equiv="Content-Type" /&gt;
+&lt;script type="text/javascript"&gt;
+	function jsonpCallback(result) {
+		//alert(result);
+		for(var i in result) {
+			alert(i+":"+result[i]);//循环输出a:1,b:2,etc.
+		}
+	}
+	var JSONP=document.createElement("script");
+	JSONP.type="text/javascript";
+	JSONP.src="http://crossdomain.com/services.php?callback=jsonpCallback";
+	document.getElementsByTagName("head")[0].appendChild(JSONP);
+&lt;/script&gt;</pre>
+
+<p>或者</p>
+<p> </p>
+<pre class="html" name="code">&lt;meta content="text/html; charset=utf-8" http-equiv="Content-Type" /&gt;
+&lt;script type="text/javascript"&gt;
+	function jsonpCallback(result) {
+		alert(result.a);
+		alert(result.b);
+		alert(result.c);
+		for(var i in result) {
+			alert(i+":"+result[i]);//循环输出a:1,b:2,etc.
+		}
+	}
+&lt;/script&gt;
+&lt;script type="text/javascript" src="http://crossdomain.com/services.php?callback=jsonpCallback"&gt;&lt;/script&gt;</pre>
+<p> </p>
+<p style="background-color: #ffff99;"><strong>JavaScript的链接，必须在function的下面。</strong>
+</p>
+<p> </p>
+<p>服务端PHP代码 （services.php）：</p>
+<p> </p>
+<pre class="php" name="code">&lt;?php
+
+//服务端返回JSON数据
+$arr=array('a'=&gt;1,'b'=&gt;2,'c'=&gt;3,'d'=&gt;4,'e'=&gt;5);
+$result=json_encode($arr);
+//echo $_GET['callback'].'("Hello,World!")';
+//echo $_GET['callback']."($result)";
+//动态执行回调函数
+$callback=$_GET['callback'];
+echo $callback."($result)";</pre>
+
+<p>如果将上述JS客户端代码用jQuery的方法来实现，也非常简单。</p>
+<p> </p>
+<p><strong>$.getJSON<br>
+$.ajax<br>
+$.get</strong>
+</p>
+<p> </p>
+<p>客户端JS代码在jQuery中的实现方式1：</p>
+<p> </p>
+<pre class="js" name="code">&lt;script type="text/javascript" src="jquery.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+	$.getJSON("http://crossdomain.com/services.php?callback=?",
+	function(result) {
+		for(var i in result) {
+			alert(i+":"+result[i]);//循环输出a:1,b:2,etc.
+		}
+	});
+&lt;/script&gt;
+</pre>
+
+<p>客户端JS代码在jQuery中的实现方式2：</p>
+<p> </p>
+<pre class="js" name="code">&lt;script type="text/javascript" src="jquery.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+	$.ajax({
+		url:"http://crossdomain.com/services.php",
+		dataType:'jsonp',
+		data:'',
+		jsonp:'callback',
+		success:function(result) {
+			for(var i in result) {
+				alert(i+":"+result[i]);//循环输出a:1,b:2,etc.
+			}
+		},
+		timeout:3000
+	});
+&lt;/script&gt;</pre>
+
+<p>客户端JS代码在jQuery中的实现方式3：</p>
+<p> </p>
+<pre class="js" name="code">&lt;script type="text/javascript" src="jquery.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+	$.get('http://crossdomain.com/services.php?callback=?', {name: encodeURIComponent('tester')}, function (json) { for(var i in json) alert(i+":"+json[i]); }, 'jsonp');
+&lt;/script&gt;
+</pre>
+
+<p>其中 jsonCallback 是客户端注册的，<span>获取</span>
+跨域<span>服务器</span>
+上的json<span>数据</span>
+后，回调的函数。<br>
+http://crossdomain.com/services.php?callback=jsonpCallback<br>
+这个 url 是跨域<span>服务</span>
+器取 json 数据的接口，参数为回调函数的名字，返回的格式为</p>
+<p> </p>
+<pre class="js" name="code">jsonpCallback({msg:'this is json data'})</pre>
+
+<p><strong>Jsonp原理：</strong>
+<br>
+首先在客户端注册一个callback, 然后把callback的名字传给服务器。<br><br>
+此时，服务器先生成 json 数据。<br>
+然后以 javascript 语法的方式，生成一个function , function 名字就是传递上来的参数 jsonp.<br><br>
+最后将 json 数据直接以入参的方式，放置到 function 中，这样就生成了一段 js 语法的文档，返回给客户端。<br><br>
+客户端浏览器，解析script标签，并执行返回的 javascript 文档，此时数据作为参数，传入到了客户端预先定义好的 callback 函数里.（动态执行回调函数）</p>
+<table cellpadding="0" border="0" cellspacing="0"><tr>
+<td><br></td>
+</tr></table>
+<p><strong>使用JSON的优点在于：</strong>
+</p>
+<ul class="article">
+<li>比XML轻了很多，没有那么多冗余的东西。</li>
+<li>JSON也是具有很好的可读性的，但是通常返回的都是压缩过后的。不像XML这样的浏览器可以直接显示，浏览器对于JSON的格式化的显示就需要借助一些插件了。</li>
+<li>在JavaScript中处理JSON很简单。</li>
+<li>其他语言例如PHP对于JSON的支持也不错。</li>
+</ul>
+<p><strong>JSON也有一些劣势：</strong>
+</p>
+<ul class="article">
+<li>JSON在服务端语言的支持不像XML那么广泛，不过JSON.org上提供很多语言的库。</li>
+<li>如果你使用eval()来解析的话，会容易出现安全问题。</li>
+</ul>
+<p>尽管如此，JSON的优点还是很明显的。他是Ajax数据交互的很理想的数据格式。</p>
+<p> </p>
+<p><a name="cautionary_note"><strong>主要提示：</strong>
+</a>
+</p>
+<p>JSONP 是构建 mashup
+的强大技术，但不幸的是，它并不是所有跨域通信需求的万灵药。它有一些缺陷，在提交开发资源之前必须认真考虑它们。</p>
+<p> </p>
+<p>第一，也是最重要的一点，没有关于
+JSONP 调用的错误处理。如果动态脚本插入有效，就执行调用；如果无效，就静默失败。失败是没有任何提示的。例如，不能从服务器捕捉到 404
+错误，也不能取消或重新开始请求。不过，等待一段时间还没有响应的话，就不用理它了。（未来的 jQuery 版本可能有终止 JSONP
+请求的特性）。</p>
+<p> </p>
+<p>JSONP 的另一个主要缺陷是被不信任的服务使用时会很危险。因为 JSONP 服务返回打包在函数调用中的 JSON 响应，而函数调用是由浏览器执行的，这使宿主 Web 应用程序更容易受到各类攻击。如果打算使用 JSONP 服务，了解它能造成的威胁非常重要。 </p>
+<p> </p>
+<p> </p>
+<p>关联：</p>
+<h3>
+<a href="/blog/1366109">征服 Ajax 应用程序的安全威胁</a>
+</h3>
+<h3>
+<a href="../../../blog/1164749">防止伪造跨站请求</a>
+</h3>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+  </div>
+
+
+
+
+  <ins data-revive-zoneid="171" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+
+
+  <div id="bottoms" class="clearfix">
+
+    <div id="share_weibo">分享到：
+      <a data-type='sina' href="javascript:;" title="分享到新浪微博"><img src="/images/sina.jpg"></a>
+      <a data-type='qq' href="javascript:;" title="分享到腾讯微博"><img src="/images/tec.jpg"></a>
+    </div>
+  </div>
+
+  <div class="blog_nav">
+    <div class="pre_next">
+      <a href="/blog/1366109" class="next" title="征服 Ajax 应用程序的安全威胁">征服 Ajax 应用程序的安全威胁</a>
+      |
+      <a href="/blog/1356462" class="pre" title="Objective-C中的一些特殊的数据类及NSLog的输出格式">Objective-C中的一些特殊的数据类及NSLog ...</a>
+    </div>
+  </div>
+  <div class="blog_bottom">
+    <ul>
+      <li>2012-01-20 23:00</li>
+      <li>浏览 270160</li>
+      <li><a href="#comments">评论(23)</a></li>
+
+
+      <li>分类:<a href="http://www.iteye.com/blogs/category/language">编程语言</a></li>
+      <li class='last'><a href="http://www.iteye.com/wiki/blog/1366102" target="_blank" class="more">相关推荐</a></li>
+    </ul>
+  </div>
+
+
+
+<div class="boutique-curr-box blog_comment">
+	  <div class="boutique-curr clearfix">
+	    <h5 class="h3titles">参考知识库</h5>
+
+	    <dl class="dlnewlist">
+
+          <dd><a target="_blank" href="http://lib.csdn.net/base/reactnative"><img src="http://img.knowledge.csdn.net/upload/base/1473751990490_490.jpg" width="58" height="58" alt=""></a></dd>
+          <dt>
+              <a target="_blank" href="http://lib.csdn.net/base/reactnative" classs="title">React Native知识库</a>
+              <span>
+                 <em>636</em>&nbsp;&nbsp;关注 <i>|</i> <em>379</em>&nbsp;&nbsp;收录
+              </span>
+          </dt>
+
+	    </dl>
+
+	    <dl class="dlnewlist">
+
+          <dd><a target="_blank" href="http://lib.csdn.net/base/ios"><img src="http://img.knowledge.csdn.net/upload/base/1472802208692_692.jpg" width="58" height="58" alt=""></a></dd>
+          <dt>
+              <a target="_blank" href="http://lib.csdn.net/base/ios" classs="title">iOS知识库</a>
+              <span>
+                 <em>606</em>&nbsp;&nbsp;关注 <i>|</i> <em>1140</em>&nbsp;&nbsp;收录
+              </span>
+          </dt>
+
+	    </dl>
+
+	    <dl class="dlnewlist">
+
+          <dd><a target="_blank" href="http://lib.csdn.net/base/liveplay"><img src="http://img.knowledge.csdn.net/upload/base/1472614759773_773.jpg" width="58" height="58" alt=""></a></dd>
+          <dt>
+              <a target="_blank" href="http://lib.csdn.net/base/liveplay" classs="title">直播技术知识库</a>
+              <span>
+                 <em>1801</em>&nbsp;&nbsp;关注 <i>|</i> <em>819</em>&nbsp;&nbsp;收录
+              </span>
+          </dt>
+
+	    </dl>
+
+	    <dl class="dlnewlist">
+
+          <dd><a target="_blank" href="http://lib.csdn.net/base/deeplearning"><img src="http://img.knowledge.csdn.net/upload/base/1474966029376_376.jpg" width="58" height="58" alt=""></a></dd>
+          <dt>
+              <a target="_blank" href="http://lib.csdn.net/base/deeplearning" classs="title">深度学习知识库</a>
+              <span>
+                 <em>191</em>&nbsp;&nbsp;关注 <i>|</i> <em>136</em>&nbsp;&nbsp;收录
+              </span>
+          </dt>
+
+	    </dl>
+
+	  </div>
+</div>
+
+
+  <div class="blog_comment">
+    <h5>评论</h5>
+    <a id="comments" name="comments"></a>
+    <div id="bc2373842">
+  <div class="comment_title">
+    23 楼
+    <a href='http://justcoding.iteye.com' target='_blank' title='天梯梦'>天梯梦</a>
+    2015-06-23&nbsp;&nbsp;
+
+
+  </div>
+  <div class="comment_content"><div class="quote_title">niunan 写道</div><div class="quote_div"> 终于学会啦。。感谢LZ。。。。</div><br /><br /><br />不客气！</div>
+</div>
+
+<div id="bc2373814">
+  <div class="comment_title">
+    22 楼
+    <a href='http://niunan.iteye.com' target='_blank' title='niunan'>niunan</a>
+    2015-06-21&nbsp;&nbsp;
+
+
+  </div>
+  <div class="comment_content"><img src="http://niunan.net/upload/testjsonp.png" /><br />终于学会啦。。感谢LZ。。。。</div>
+</div>
+
+<div id="bc2372904">
+  <div class="comment_title">
+    21 楼
+    <a href='http://justcoding.iteye.com' target='_blank' title='天梯梦'>天梯梦</a>
+    2015-06-02&nbsp;&nbsp;
+
+
+  </div>
+  <div class="comment_content"><div class="quote_title">107x 写道</div><div class="quote_div">不错，谢谢！</div><br />有帮助就好！</div>
+</div>
+
+<div id="bc2372875">
+  <div class="comment_title">
+    20 楼
+    <a href='http://107x.iteye.com' target='_blank' title='107x'>107x</a>
+    2015-06-01&nbsp;&nbsp;
+
+
+  </div>
+  <div class="comment_content">不错，谢谢！</div>
+</div>
+
+<div id="bc2367475">
+  <div class="comment_title">
+    19 楼
+    <a href='http://justcoding.iteye.com' target='_blank' title='天梯梦'>天梯梦</a>
+    2015-02-04&nbsp;&nbsp;
+
+
+  </div>
+  <div class="comment_content"><div class="quote_title">Ripin_Yan 写道</div><div class="quote_div">呵呵，没事。stackoverflow的我看了，都没有成功解决http访问https的，有回复说针对火狐浏览器的那个，试了也不行，有成功访问的，但是是添加证书了的，关于php的我就不清楚了，不会这个。还是弄个HttpsUtil去访问https了</div><br /><br />会php的话，这个就非常容易了。。。 加油！<br /></div>
+</div>
+
+<div id="bc2367362">
+  <div class="comment_title">
+    18 楼
+    <a href='http://ripin-yan.iteye.com' target='_blank' title='Ripin_Yan'>Ripin_Yan</a>
+    2015-02-02&nbsp;&nbsp;
+
+
+  </div>
+  <div class="comment_content"><div class="quote_title">天梯梦 写道</div><div class="quote_div"><div class="quote_title">Ripin_Yan 写道</div><div class="quote_div"><br /><pre class="java" name="code">
+
+		$("input[lang='jsonp']").click(function(){
+
+			var url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid=wx59df2ba56720ee7d&amp;secret=7a2790cf4235ca07ba40a8516047296c&amp;jsoncallback=?";
+			$.getJSON(url,function(data){
+
+		         console.info("weixin:"+data);
+
+		    });
+
+		});
+</pre></div><br /><br />hi, 这两天太忙，没有来得及回复，不好意思。&nbsp; 你的问题的确是因为https安全引起的，我们正在使用的是jquery，当你从http获取https加密网站的数据时候，jquery默认会认为是不安全的，所以程序根本就得不到返回值，那就更谈不上打印出来了。 我觉得比较简单的方法如下（如果你是一个phper的话）：<br /><pre class="javacript" name="code">
+	$(function(){
+	 	//$("input[lang='jsonp']").click(function(){
+
+  			/*
+        	var url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid=wx59df2ba56720ee7d&amp;secret=7a2790cf4235ca07ba40a8516047296c&amp;callback=?";
+
+        	alert(url);
+
+        	$.getJSON(url,function(data){ alert(data);
+		        //for(var i in data) alert(i+":"+data[i]);
+        	});
+        	*/
+    	//});
+
+    	var data = JSON.parse('&lt;?php echo file_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid=wx59df2ba56720ee7d&amp;secret=7a2790cf4235ca07ba40a8516047296c&amp;callback=?') ?&gt;');
+
+    	for(var i in data) alert(i+":"+data[i]);
+	})
+
+</pre><br /><br />参考网站（如果没有被屏蔽的话）：<a rel="nofollow" href="http://stackoverflow.com/questions/14133484/jsonp-request-fails-when-https-is-used-instead-of-http" target="_blank">http://stackoverflow.com/questions/14133484/jsonp-request-fails-when-https-is-used-instead-of-http</a><br /><br /><br /><br /></div><br /><br />呵呵，没事。stackoverflow的我看了，都没有成功解决http访问https的，有回复说针对火狐浏览器的那个，试了也不行，有成功访问的，但是是添加证书了的，关于php的我就不清楚了，不会这个。还是弄个HttpsUtil去访问https了</div>
+</div>
+
+<div id="bc2367307">
+  <div class="comment_title">
+    17 楼
+    <a href='http://justcoding.iteye.com' target='_blank' title='天梯梦'>天梯梦</a>
+    2015-01-31&nbsp;&nbsp;
+
+
+  </div>
+  <div class="comment_content"><div class="quote_title">Ripin_Yan 写道</div><div class="quote_div"><br /><pre class="java" name="code">
+
+		$("input[lang='jsonp']").click(function(){
+
+			var url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid=wx59df2ba56720ee7d&amp;secret=7a2790cf4235ca07ba40a8516047296c&amp;jsoncallback=?";
+			$.getJSON(url,function(data){
+
+		         console.info("weixin:"+data);
+
+		    });
+
+		});
+</pre></div><br /><br />hi, 这两天太忙，没有来得及回复，不好意思。&nbsp; 你的问题的确是因为https安全引起的，我们正在使用的是jquery，当你从http获取https加密网站的数据时候，jquery默认会认为是不安全的，所以程序根本就得不到返回值，那就更谈不上打印出来了。 我觉得比较简单的方法如下（如果你是一个phper的话）：<br /><pre class="javacript" name="code">
+	$(function(){
+	 	//$("input[lang='jsonp']").click(function(){
+
+  			/*
+        	var url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid=wx59df2ba56720ee7d&amp;secret=7a2790cf4235ca07ba40a8516047296c&amp;callback=?";
+
+        	alert(url);
+
+        	$.getJSON(url,function(data){ alert(data);
+		        //for(var i in data) alert(i+":"+data[i]);
+        	});
+        	*/
+    	//});
+
+    	var data = JSON.parse('&lt;?php echo file_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid=wx59df2ba56720ee7d&amp;secret=7a2790cf4235ca07ba40a8516047296c&amp;callback=?') ?&gt;');
+
+    	for(var i in data) alert(i+":"+data[i]);
+	})
+
+</pre><br /><br />参考网站（如果没有被屏蔽的话）：<a rel="nofollow" href="http://stackoverflow.com/questions/14133484/jsonp-request-fails-when-https-is-used-instead-of-http" target="_blank">http://stackoverflow.com/questions/14133484/jsonp-request-fails-when-https-is-used-instead-of-http</a><br /><br /><br /><br /></div>
+</div>
+
+<div id="bc2367187">
+  <div class="comment_title">
+    16 楼
+    <a href='http://ripin-yan.iteye.com' target='_blank' title='Ripin_Yan'>Ripin_Yan</a>
+    2015-01-29&nbsp;&nbsp;
+
+
+  </div>
+  <div class="comment_content"><br />JSON：JavaScript 对象表示法（JavaScript Object Notation）。其实JSON也算是对象了。至于你的问题，能不能给我你的https地址，以及代码，我调试一下。<br /><br />嗯，这么早就开始看论坛了啊。<br /><pre class="java" name="code">
+
+		$("input[lang='jsonp']").click(function(){
+
+			var url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid=wx59df2ba56720ee7d&amp;secret=7a2790cf4235ca07ba40a8516047296c&amp;jsoncallback=?";
+			$.getJSON(url,function(data){
+
+		         console.info("weixin:"+data);
+
+		    });
+
+		});
+</pre></div>
+</div>
+
+<div id="bc2367179">
+  <div class="comment_title">
+    15 楼
+    <a href='http://justcoding.iteye.com' target='_blank' title='天梯梦'>天梯梦</a>
+    2015-01-29&nbsp;&nbsp;
+
+
+  </div>
+  <div class="comment_content"><div class="quote_title">引用</div><div class="quote_div">看完你那篇文章，感觉不是很理解，用confole.info(result);结果是：[object Object]，这些不懂的就不去想了，反正理解一点，json不能脱离string，就是一串字符串，只不过元素会使用特定的符号标注。<br />&nbsp;&nbsp;&nbsp; 回到我这个问题的开始，能正确拿到返回的数据，就是会出现SyntaxError: missing ; before statement的错误，试了IE也是如此，问题的本质是不是因为我的url跨了协议，不能是https的url</div><br /><br />JSON：JavaScript 对象表示法（JavaScript Object Notation）。其实JSON也算是对象了。至于你的问题，能不能给我你的https地址，以及代码，我调试一下。</div>
+</div>
+
+<div id="bc2367129">
+  <div class="comment_title">
+    14 楼
+    <a href='http://ripin-yan.iteye.com' target='_blank' title='Ripin_Yan'>Ripin_Yan</a>
+    2015-01-28&nbsp;&nbsp;
+
+
+  </div>
+  <div class="comment_content"><div class="quote_title">天梯梦 写道</div><div class="quote_div"><div class="quote_title">Ripin_Yan 写道</div><div class="quote_div"><div class="quote_title">天梯梦 写道</div><div class="quote_div"><div class="quote_title">Ripin_Yan 写道</div><div class="quote_div"><br /><br />这个测试也可以，我对比了一下，发现你这个代码返回的就是字符串格式，我跨域访问的微信服务器返回的是json格式的数据，难道是不能返回json格式的？不应该啊<br /><br /><pre class="java" name="code">
+{"access_token":"BQ7FC0Ja1U152b3kNcH14bs2gDqN4awoVZbAYR7aDRcLMxqU8diroUIPK0eG_Ej0MangnpKm7Dp4MnZkcynD5r_1dzlIyT6R78e0abo1LoQ","expires_in":7200}
+---------------------------------------------------------------------
+jQuery183005031723691165679_1422004244273({"a":1,"b":2,"c":3,"d":4,"e":5})
+</pre></div><br /><br />我觉得你还是没有明白什么json，没有所谓的字符串格式，而所谓的json格式就是字符串组成的。<br /><br /></div><br />好吧，我表达的有问题，我的意思是返回的字符串符不符合json规则，从返回值上看我这个{"access_token":"BQ7FC0Ja1U152b3kNcH14bs2gDqN4awoVZbAYR7aDRcLMxqU8diroUIPK0eG_Ej0MangnpKm7Dp4MnZkcynD5r_1dzlIyT6R78e0abo1LoQ","expires_in":7200}就是有效的json数据，你这个jQuery183005031723691165679_1422004244273({"a":1,"b":2,"c":3,"d":4,"e":5})就不是，但是奇怪的是你这个字符串也能被javascript解析，可以直接alert(result.c);得到值3</div><br /><br />我想说的有三点：<br /><br />第一：跨域名获取网页内容时，返回的内容无论是什么，整个内容都将视为字符串的属性，因为返回时候，不会验证内容，而是一概视为字符串。<br />第二：参考另一篇文章<a rel="nofollow" href="http://justcoding.iteye.com/blog/2180289" target="_blank">http://justcoding.iteye.com/blog/2180289</a>，在字符串里，JSON才是JSON<br />第三：我返回的 jQuery183005031723691165679_1422004244273({"a":1,"b":2,"c":3,"d":4,"e":5}) 你就当做是 {"a":1,"b":2,"c":3,"d":4,"e":5} 就可以了，我想jQuery183005031723691165679_1422004244273()应该是跟jquery有关的。<br /><br />不知道这么解释，是不是和你的问题对口...<br /></div><br /><br />&nbsp;&nbsp;&nbsp; 看完你那篇文章，感觉不是很理解，用confole.info(result);结果是：[object Object]，这些不懂的就不去想了，反正理解一点，json不能脱离string，就是一串字符串，只不过元素会使用特定的符号标注。<br />&nbsp;&nbsp;&nbsp; 回到我这个问题的开始，能正确拿到返回的数据，就是会出现SyntaxError: missing ; before statement的错误，试了IE也是如此，问题的本质是不是因为我的url跨了协议，不能是https的url</div>
+</div>
+
+<div id="bc2367015">
+  <div class="comment_title">
+    13 楼
+    <a href='http://justcoding.iteye.com' target='_blank' title='天梯梦'>天梯梦</a>
+    2015-01-27&nbsp;&nbsp;
+
+
+  </div>
+  <div class="comment_content"><div class="quote_title">Ripin_Yan 写道</div><div class="quote_div"><div class="quote_title">天梯梦 写道</div><div class="quote_div"><div class="quote_title">Ripin_Yan 写道</div><div class="quote_div"><br /><br />这个测试也可以，我对比了一下，发现你这个代码返回的就是字符串格式，我跨域访问的微信服务器返回的是json格式的数据，难道是不能返回json格式的？不应该啊<br /><br /><pre class="java" name="code">
+{"access_token":"BQ7FC0Ja1U152b3kNcH14bs2gDqN4awoVZbAYR7aDRcLMxqU8diroUIPK0eG_Ej0MangnpKm7Dp4MnZkcynD5r_1dzlIyT6R78e0abo1LoQ","expires_in":7200}
+---------------------------------------------------------------------
+jQuery183005031723691165679_1422004244273({"a":1,"b":2,"c":3,"d":4,"e":5})
+</pre></div><br /><br />我觉得你还是没有明白什么json，没有所谓的字符串格式，而所谓的json格式就是字符串组成的。<br /><br /></div><br />好吧，我表达的有问题，我的意思是返回的字符串符不符合json规则，从返回值上看我这个{"access_token":"BQ7FC0Ja1U152b3kNcH14bs2gDqN4awoVZbAYR7aDRcLMxqU8diroUIPK0eG_Ej0MangnpKm7Dp4MnZkcynD5r_1dzlIyT6R78e0abo1LoQ","expires_in":7200}就是有效的json数据，你这个jQuery183005031723691165679_1422004244273({"a":1,"b":2,"c":3,"d":4,"e":5})就不是，但是奇怪的是你这个字符串也能被javascript解析，可以直接alert(result.c);得到值3</div><br /><br />我想说的有三点：<br /><br />第一：跨域名获取网页内容时，返回的内容无论是什么，整个内容都将视为字符串的属性，因为返回时候，不会验证内容，而是一概视为字符串。<br />第二：参考另一篇文章<a rel="nofollow" href="http://justcoding.iteye.com/blog/2180289" target="_blank">http://justcoding.iteye.com/blog/2180289</a>，在字符串里，JSON才是JSON<br />第三：我返回的 jQuery183005031723691165679_1422004244273({"a":1,"b":2,"c":3,"d":4,"e":5}) 你就当做是 {"a":1,"b":2,"c":3,"d":4,"e":5} 就可以了，我想jQuery183005031723691165679_1422004244273()应该是跟jquery有关的。<br /><br />不知道这么解释，是不是和你的问题对口...<br /></div>
+</div>
+
+<div id="bc2366997">
+  <div class="comment_title">
+    12 楼
+    <a href='http://ripin-yan.iteye.com' target='_blank' title='Ripin_Yan'>Ripin_Yan</a>
+    2015-01-26&nbsp;&nbsp;
+
+
+  </div>
+  <div class="comment_content"><div class="quote_title">天梯梦 写道</div><div class="quote_div"><div class="quote_title">Ripin_Yan 写道</div><div class="quote_div"><br /><br />这个测试也可以，我对比了一下，发现你这个代码返回的就是字符串格式，我跨域访问的微信服务器返回的是json格式的数据，难道是不能返回json格式的？不应该啊<br /><br /><pre class="java" name="code">
+{"access_token":"BQ7FC0Ja1U152b3kNcH14bs2gDqN4awoVZbAYR7aDRcLMxqU8diroUIPK0eG_Ej0MangnpKm7Dp4MnZkcynD5r_1dzlIyT6R78e0abo1LoQ","expires_in":7200}
+---------------------------------------------------------------------
+jQuery183005031723691165679_1422004244273({"a":1,"b":2,"c":3,"d":4,"e":5})
+</pre></div><br /><br />我觉得你还是没有明白什么json，没有所谓的字符串格式，而所谓的json格式就是字符串组成的。<br /><br /></div><br />好吧，我表达的有问题，我的意思是返回的字符串符不符合json规则，从返回值上看我这个{"access_token":"BQ7FC0Ja1U152b3kNcH14bs2gDqN4awoVZbAYR7aDRcLMxqU8diroUIPK0eG_Ej0MangnpKm7Dp4MnZkcynD5r_1dzlIyT6R78e0abo1LoQ","expires_in":7200}就是有效的json数据，你这个jQuery183005031723691165679_1422004244273({"a":1,"b":2,"c":3,"d":4,"e":5})就不是，但是奇怪的是你这个字符串也能被javascript解析，可以直接alert(result.c);得到值3</div>
+</div>
+
+<div id="bc2366909">
+  <div class="comment_title">
+    11 楼
+    <a href='http://justcoding.iteye.com' target='_blank' title='天梯梦'>天梯梦</a>
+    2015-01-24&nbsp;&nbsp;
+
+
+  </div>
+  <div class="comment_content"><div class="quote_title">Ripin_Yan 写道</div><div class="quote_div"><br /><br />这个测试也可以，我对比了一下，发现你这个代码返回的就是字符串格式，我跨域访问的微信服务器返回的是json格式的数据，难道是不能返回json格式的？不应该啊<br /><br /><pre class="java" name="code">
+{"access_token":"BQ7FC0Ja1U152b3kNcH14bs2gDqN4awoVZbAYR7aDRcLMxqU8diroUIPK0eG_Ej0MangnpKm7Dp4MnZkcynD5r_1dzlIyT6R78e0abo1LoQ","expires_in":7200}
+---------------------------------------------------------------------
+jQuery183005031723691165679_1422004244273({"a":1,"b":2,"c":3,"d":4,"e":5})
+</pre></div><br /><br />我觉得你还是没有明白什么json，没有所谓的字符串格式，而所谓的json格式就是字符串组成的。<br /><br /></div>
+</div>
+
+<div id="bc2366890">
+  <div class="comment_title">
+    10 楼
+    <a href='http://ripin-yan.iteye.com' target='_blank' title='Ripin_Yan'>Ripin_Yan</a>
+    2015-01-23&nbsp;&nbsp;
+
+
+  </div>
+  <div class="comment_content"><div class="quote_title">天梯梦 写道</div><div class="quote_div"><div class="quote_title">Ripin_Yan 写道</div><div class="quote_div">不知博主在使用<br />$.getJSON(url,function(json){<br />&nbsp;&nbsp;&nbsp; alert("abc");<br />});<br />是否用火狐测过，始终报错SyntaxError: missing ; before statement<br />	<br /><br />{"access_token":"G0ygr95aKC7mpRSj0todNxf1Gia8IFXroqTytb6JOb83w9nZfKgNAQJT9f<br /><br />，网上看到有php的解决方案： echo "{$_GET['jsoncallback']}({$b})";<br />但是jsp上却不知道怎么解决。</div><br /><br />你可以在本地运行一下如下代码：<br /><pre class="php" name="code">
+&lt;script type="text/javascript" src="http://sources.ikeepstudying.com/js/jquery-1.8.3.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+	$.getJSON("http://test.ikeepstudying.com/json.php?callback=?",
+	function(result) {
+		for(var i in result) {
+			alert(i+":"+result[i]);//循环输出a:1,b:2,etc.
+		}
+	});
+&lt;/script&gt;
+</pre><br /><br />我的火狐通过测试<br /></div><br /><br />这个测试也可以，我对比了一下，发现你这个代码返回的就是字符串格式，我跨域访问的微信服务器返回的是json格式的数据，难道是不能返回json格式的？不应该啊<br /><br /><pre class="java" name="code">
+{"access_token":"BQ7FC0Ja1U152b3kNcH14bs2gDqN4awoVZbAYR7aDRcLMxqU8diroUIPK0eG_Ej0MangnpKm7Dp4MnZkcynD5r_1dzlIyT6R78e0abo1LoQ","expires_in":7200}
+---------------------------------------------------------------------
+jQuery183005031723691165679_1422004244273({"a":1,"b":2,"c":3,"d":4,"e":5})
+</pre></div>
+</div>
+
+<div id="bc2366768">
+  <div class="comment_title">
+    9 楼
+    <a href='http://justcoding.iteye.com' target='_blank' title='天梯梦'>天梯梦</a>
+    2015-01-22&nbsp;&nbsp;
+
+
+  </div>
+  <div class="comment_content"><div class="quote_title">Ripin_Yan 写道</div><div class="quote_div">不知博主在使用<br />$.getJSON(url,function(json){<br />&nbsp;&nbsp;&nbsp; alert("abc");<br />});<br />是否用火狐测过，始终报错SyntaxError: missing ; before statement<br />	<br /><br />{"access_token":"G0ygr95aKC7mpRSj0todNxf1Gia8IFXroqTytb6JOb83w9nZfKgNAQJT9f<br /><br />，网上看到有php的解决方案： echo "{$_GET['jsoncallback']}({$b})";<br />但是jsp上却不知道怎么解决。</div><br /><br />你可以在本地运行一下如下代码：<br /><pre class="php" name="code">
+&lt;script type="text/javascript" src="http://sources.ikeepstudying.com/js/jquery-1.8.3.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+	$.getJSON("http://test.ikeepstudying.com/json.php?callback=?",
+	function(result) {
+		for(var i in result) {
+			alert(i+":"+result[i]);//循环输出a:1,b:2,etc.
+		}
+	});
+&lt;/script&gt;
+</pre><br /><br />我的火狐通过测试<br /></div>
+</div>
+
+<div id="bc2366601">
+  <div class="comment_title">
+    8 楼
+    <a href='http://ripin-yan.iteye.com' target='_blank' title='Ripin_Yan'>Ripin_Yan</a>
+    2015-01-19&nbsp;&nbsp;
+
+
+  </div>
+  <div class="comment_content">不知博主在使用<br />$.getJSON(url,function(json){<br />&nbsp;&nbsp;&nbsp; alert("abc");<br />});<br />是否用火狐测过，始终报错SyntaxError: missing ; before statement<br />	<br /><br />{"access_token":"G0ygr95aKC7mpRSj0todNxf1Gia8IFXroqTytb6JOb83w9nZfKgNAQJT9f<br /><br />，网上看到有php的解决方案： echo "{$_GET['jsoncallback']}({$b})";<br />但是jsp上却不知道怎么解决。</div>
+</div>
+
+<div id="bc2339885">
+  <div class="comment_title">
+    7 楼
+    <a href='http://justcoding.iteye.com' target='_blank' title='天梯梦'>天梯梦</a>
+    2014-02-18&nbsp;&nbsp;
+
+
+  </div>
+  <div class="comment_content"><div class="quote_title">simpleDean 写道</div><div class="quote_div">hi，请教一下，服务端是个单纯的json数据的api，该如何操作呢。我按照你的方法写客户端html，发现取不到数据返回后不会调用callback函数，不知道数据去哪里了。</div><br />你可以打开firebug之后，再进行调试，看看有什么报错。</div>
+</div>
+
+<div id="bc2339805">
+  <div class="comment_title">
+    6 楼
+    <a href='http://simpleDean.iteye.com' target='_blank' title='simpleDean'>simpleDean</a>
+    2014-02-17&nbsp;&nbsp;
+
+
+  </div>
+  <div class="comment_content">hi，请教一下，服务端是个单纯的json数据的api，该如何操作呢。我按照你的方法写客户端html，发现取不到数据返回后不会调用callback函数，不知道数据去哪里了。</div>
+</div>
+
+<div id="bc2326914">
+  <div class="comment_title">
+    5 楼
+    <a href='http://meigong568.iteye.com' target='_blank' title='meigong568'>meigong568</a>
+    2013-09-29&nbsp;&nbsp;
+
+
+  </div>
+  <div class="comment_content">推荐看一下，这篇方法也不错<br />http://www.biuman.com/2013/01/jsonp-example-html/<br /></div>
+</div>
+
+<div id="bc2302799">
+  <div class="comment_title">
+    4 楼
+    <a href='http://justcoding.iteye.com' target='_blank' title='天梯梦'>天梯梦</a>
+    2013-03-07&nbsp;&nbsp;
+
+
+  </div>
+  <div class="comment_content"><div class="quote_title">wangpenghua 写道</div><div class="quote_div">请问如何跨域提交xlm格式的数据到服务器？</div><br />简单的方法就是通过curl获取页面内容，然后再解析xml，最后上传到数据库。</div>
+</div>
+
+
+
+    <div class="pagination"><span class="disabled prev_page">&laquo; 上一页</span> <span class="current">1</span> <a href="/blog/1366102?page=2#comments" rel="next">2</a> <a href="/blog/1366102?page=2#comments" class="next_page" rel="next">下一页 &raquo;</a></div>
+  </div>
+
+  <div class="blog_comment">
+    <h5>发表评论</h5>
+            <p style="text-align:center; margin-top:30px;margin-bottom:0px;"><a href="/login" style="background-color:white;"> <img src="/images/login_icon.png" style="vertical-align:middle; margin-right: 10px;" /></a><a href="/login">  您还没有登录,请您登录后再发表评论 </a></p>
+      </div>
+</div>
+
+
+<script type="text/javascript">
+  dp.SyntaxHighlighter.HighlightAll('code', true, true);
+
+  $$('#main .blog_content pre[name=code]').each(function(pre, index){ // blog content
+    var post_id = 1366102;
+    var location = window.location;
+    source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+    pre.writeAttribute('codeable_id', post_id);
+    pre.writeAttribute('codeable_type', "Blog");
+    pre.writeAttribute('source_url', source_url);
+    pre.writeAttribute('pre_index', index);
+    pre.writeAttribute('title', 'AJAX 跨域请求 - JSONP获取JSON数据');
+  });
+
+  fix_image_size($$('div.blog_content img'), 700);
+
+  function processComment() {
+    $$('#main .blog_comment > div').each(function(comment){// comment
+      var post_id = comment.id.substr(2);
+      $$("#"+comment.id+" pre[name=code]").each(function(pre, index){
+        var location = window.location;
+        source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+        source_url += "#" + comment.id;
+        pre.writeAttribute('codeable_id', post_id);
+        pre.writeAttribute('codeable_type', "BlogComment");
+        pre.writeAttribute('source_url', source_url);
+        pre.writeAttribute('pre_index', index);
+        pre.writeAttribute('title', 'AJAX 跨域请求 - JSONP获取JSON数据');
+      });
+    });
+  }
+
+  function quote_comment(id) {
+    new Ajax.Request('/editor/quote', {
+      parameters: {'id':id, 'type':'BlogComment'},
+      onSuccess:function(response){editor.bbcode_editor.textarea.insertAfterSelection(response.responseText);
+        Element.scrollTo(editor.bbcode_editor.textarea.element);}
+    });
+  }
+
+  code_favorites_init();
+  processComment();
+  new WeiboShare({share_buttons: $('share_weibo'), img_scope: $('blog_content')});
+</script>
+
+
+
+
+        </div>
+
+        <div id="local">
+          <div class="local_top"></div>
+          <div id="blog_owner">
+  <div id="blog_owner_logo"><a href='http://justcoding.iteye.com'><img alt="天梯梦的博客" class="logo" src="http://www.iteye.com/upload/logo/user/1061218/91ca89af-122a-38c7-b303-8269d12dfe6a.png?1424211307" title="天梯梦的博客: Just Code" width="" /></a></div>
+  <div id="blog_owner_name">天梯梦</div>
+</div>
+
+          <div id="blog_actions">
+            <ul>
+              <li>浏览: 7274116 次</li>
+              <li>性别: <img alt="Icon_minigender_2" src="http://www.iteye.com/images/icon_minigender_2.gif?1448702469" title="女" /></li>
+              <li>来自: 洛杉矶</li>
+              <li><img src='/images/status/offline.gif'/></li>
+
+            </ul>
+          </div>
+          <div id="user_visits" class="clearfix">
+            <h5>最近访客 <span style='font-weight:normal;font-size:12px;padding-left:30px;'><a href="/blog/user_visits">更多访客&gt;&gt;</a></span></h5>
+
+              <div class="user_visit">
+                <div class="logo"><a href='http://wedislong.iteye.com' target='_blank'><img alt="wedislong的博客" class="logo" src="http://www.iteye.com/images/user-logo-thumb.gif?1448702469" title="wedislong的博客: " width="48px" /></a></div>
+                <div class="left"><a href='http://wedislong.iteye.com' target='_blank' title='wedislong'>wedislong</a></div>
+              </div>
+
+              <div class="user_visit">
+                <div class="logo"><a href='http://finly4599.iteye.com' target='_blank'><img alt="finly4599的博客" class="logo" src="http://www.iteye.com/images/user-logo-thumb.gif?1448702469" title="finly4599的博客: " width="48px" /></a></div>
+                <div class="left"><a href='http://finly4599.iteye.com' target='_blank' title='finly4599'>finly4599</a></div>
+              </div>
+
+              <div class="user_visit">
+                <div class="logo"><a href='http://davidpeterman.iteye.com' target='_blank'><img alt="DavidPeterMan的博客" class="logo" src="http://www.iteye.com/images/user-logo-thumb.gif?1448702469" title="DavidPeterMan的博客: " width="48px" /></a></div>
+                <div class="left"><a href='http://davidpeterman.iteye.com' target='_blank' title='DavidPeterMan'>DavidPeterMan</a></div>
+              </div>
+
+              <div class="user_visit">
+                <div class="logo"><a href='http://zxh051093.iteye.com' target='_blank'><img alt="zxh051093的博客" class="logo" src="http://www.iteye.com/images/user-logo-thumb.gif?1448702469" title="zxh051093的博客: " width="48px" /></a></div>
+                <div class="left"><a href='http://zxh051093.iteye.com' target='_blank' title='zxh051093'>zxh051093</a></div>
+              </div>
+
+          </div>
+
+
+
+                      <div id="blog_menu">
+              <h5>文章分类</h5>
+              <ul>
+                <li><a href="/">全部博客 (1999)</a></li>
+
+                  <li><a href="/category/89134">Php / Pear / Mysql / Node.js (378)</a></li>
+
+                  <li><a href="/category/89135">Javascript /Jquery / Bootstrap / Web (435)</a></li>
+
+                  <li><a href="/category/178119">Phone / IOS / Objective-C / Swift (137)</a></li>
+
+                  <li><a href="/category/229050">Ubuntu / Mac / Github / Aptana / Nginx / Shell / Linux (335)</a></li>
+
+                  <li><a href="/category/262642">Perl / Koha / Ruby / Markdown (8)</a></li>
+
+                  <li><a href="/category/166396">Java / Jsp (12)</a></li>
+
+                  <li><a href="/category/91095">Python 2 / Wxpython (25)</a></li>
+
+                  <li><a href="/category/89155">Codeigniter / CakePHP (32)</a></li>
+
+                  <li><a href="/category/89136">Div / Css / XML / HTML5 (179)</a></li>
+
+                  <li><a href="/category/91307">WP / Joomla! / Magento / Shopify / Drupal / Moodle / Zimbra (275)</a></li>
+
+                  <li><a href="/category/89437">Apache / VPN / Software (31)</a></li>
+
+                  <li><a href="/category/91407">AS3.0/2.0 / Flex / Flash (45)</a></li>
+
+                  <li><a href="/category/92551">Smarty (6)</a></li>
+
+                  <li><a href="/category/93795">SEO (24)</a></li>
+
+                  <li><a href="/category/89137">Google / Facebook / Pinterest / SNS (80)</a></li>
+
+                  <li><a href="/category/264864">Tools (22)</a></li>
+
+              </ul>
+            </div>
+            <div id='month_blogs'>
+              <h5>社区版块</h5>
+              <ul>
+                <li><a href="/blog/news">我的资讯</a> (0)</li>
+                <li>
+                  <a href="/blog/post">我的论坛</a> (16)
+                </li>
+                <li><a href="/blog/answered_problems">我的问答</a> (0)</li>
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>存档分类</h5>
+              <ul>
+
+                  <li><a href="/blog/monthblog/2016-09">2016-09</a> (5)</li>
+
+                  <li><a href="/blog/monthblog/2016-08">2016-08</a> (50)</li>
+
+                  <li><a href="/blog/monthblog/2016-07">2016-07</a> (70)</li>
+
+                <li><a href="/blog/monthblog_more">更多存档...</a></li>
+              </ul>
+            </div>
+
+
+              <div id="comments_top">
+                <h5>评论排行榜</h5>
+                <ul>
+
+                    <li><a href="/blog/2263578" title="Proxy、SSH 和 VPN 的区别">Proxy、SSH 和 VPN 的区别</a></li>
+
+                </ul>
+              </div>
+
+
+            <div id="guest_books">
+              <h5>最新评论</h5>
+              <ul>
+
+                <li>
+                  <a href='http://masuweng.iteye.com' target='_blank' title='masuweng'>masuweng</a>：
+                        帮助到我了。。尤其是第一个参数 ，我就是这直接载入 ...<br />
+                  <a href="/blog/665075#bc2393150">轻量级的 JavaScript 弹出框脚本：TinyBox</a>
+                </li>
+
+                <li>
+                  <a href='http://201606011126.iteye.com' target='_blank' title='一只电兔子'>一只电兔子</a>：
+                  谢谢,辛苦啦<br />
+                  <a href="/blog/2010575#bc2391728">给开发者准备的 10 款最好的 jQuery 日历插件</a>
+                </li>
+
+                <li>
+                  <a href='http://youxianyen.iteye.com' target='_blank' title='youxianyen'>youxianyen</a>：
+                   ...<br />
+                  <a href="/blog/2210361#bc2391492">微信红包随机生成算法（PHP版）</a>
+                </li>
+
+                <li>
+                  <a href='http://435727748.iteye.com' target='_blank' title='潇洒欧兄'>潇洒欧兄</a>：
+                  有什么方法，把下载按钮去掉<br />
+                  <a href="/blog/2163072#bc2390457">jquery在线预览PDF文件，打开PDF文件</a>
+                </li>
+
+                <li>
+                  <a href='http://1078897235.iteye.com' target='_blank' title='aiq缘诀录'>aiq缘诀录</a>：
+                  [b][b][b][b][b][b][b][b][b][b][ ...<br />
+                  <a href="/blog/1950270#bc2390445">OAuth2.0认证和授权原理</a>
+                </li>
+
+              </ul>
+            </div>
+
+            <div class="local_bottom"></div>
+
+        </div>
+        <div style="margin-top: 10px;float: left;clear: left;">
+					<ins data-revive-zoneid="185" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+				</div>
+      </div>
+
+      <div id="footer" class="clearfix">
+        <div id="copyright">
+          <hr/>
+          声明：ITeye文章版权属于作者，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。<br />
+          &copy; 2003-2016 ITeye.com.   All rights reserved.  [ 京ICP证110151号  京公网安备110105010620 ]
+        </div>
+        <ins data-revive-zoneid="186" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+      </div>
+    </div>
+    <script type="text/javascript">
+  document.write("<img src='http://stat.iteye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&user_id=' width='0' height='0' />");
+</script>
+
+<script src="http://csdnimg.cn/pubfooter/js/tracking.js?version=20130923164150" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-54159016-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+    <script language="javascript" type="text/javascript" src="http://ads.csdn.net/js/async_new.js"></script>
+<script src="http://c.csdnimg.cn/public/common/libs/jquery/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script type="text/javascript">var $csdn_iteye_jq = jQuery.noConflict();// 解决jq与prototype.js命名空间冲突的问题</script>
+<script src="http://ads.csdn.net/js/tracking.js" type="text/javascript"></script>
+
+
+	    <script src="http://www.iteye.com/javascripts/web-storage-cache.min.js?1461122670" type="text/javascript"></script>
+	    <script src="http://www.iteye.com/javascripts/replace.min.js?1464163307" type="text/javascript"></script>
+
+
+  </body>
+</html>

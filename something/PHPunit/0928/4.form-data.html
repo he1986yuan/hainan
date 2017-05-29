@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript">
+		window.onload = function(){
+			var oForm = document.getElementsByTagName('form')[0];
+			oForm.onsubmit = function(){
+				//将表单的数据以ajax的形式发送到服务器
+				//先采集输入框的内容
+				// var formData = new FormData(oForm);
+				var formData = new FormData(this);
+				var xhr;
+				try{
+					xhr = new XMLHttpRequest();
+				}catch(e){
+					xhr = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				xhr.open('post','form.php',true);
+				xhr.send(formData);
+				xhr.onreadystatechange = function(){
+					if(xhr.readyState==4 && xhr.status==200){
+						alert(xhr.responseText);
+					}
+				}
+				return false;
+			}
+		}
+	</script>
+</head>
+<body>
+	<form action="form.php" method="post">
+		<p>用户名:<input type="text" name="user" id="user"></p>
+		<p>密码:<input type="password" name="pass" id="pass"></p>
+		<p>邮箱:<input type="text" name="email" id="email"></p>
+		<p><input type='submit' value="提交"></p>
+	</form>
+</body>
+</html>

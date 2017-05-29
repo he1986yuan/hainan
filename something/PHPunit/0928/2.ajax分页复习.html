@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		*{margin:0;padding: 0}
+		li{list-style: none;}
+		a{text-decoration: none}
+		body{font-size: 14px;font-family: Arial,"微软雅黑"}
+		#main{width:500px;margin:50px auto;}
+		#main ul li{width: 220px;float: left;text-align: center;}
+		#main li img{width: 220px;height: 220px}
+		#pagebar{clear: both;text-align: center;padding-top: 20px}
+	</style>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+	<div id="main">
+		<ul>
+			<li>
+				<a href="">
+					<img src="images/a.jpg">
+					<span>新货 核桃 新疆大核桃 阿克苏薄皮核桃 仁很饱满【巴扎20度C】</span>
+				</a>
+			</li>
+			<li>
+				<a href="">
+					<img src="images/a.jpg">
+					<span>新货 核桃 新疆大核桃 阿克苏薄皮核桃 仁很饱满【巴扎20度C】</span>
+				</a>
+			</li>
+			<li>
+				<a href="">
+					<img src="images/a.jpg">
+					<span>新货 核桃 新疆大核桃 阿克苏薄皮核桃 仁很饱满【巴扎20度C】</span>
+				</a>
+			</li>
+			<li>
+				<a href="">
+					<img src="images/a.jpg">
+					<span>新货 核桃 新疆大核桃 阿克苏薄皮核桃 仁很饱满【巴扎20度C】</span>
+				</a>
+			</li>
+		</ul>
+		<div id="pagebar">
+			<span>共30条记录1/8</span><a href="javascript:goPage(cur+1)">下一页</a><a href="">尾页</a>
+		</div>
+	</div>
+	<script type="text/javascript">
+		goPage(1);
+		function goPage(ipage){
+			$$.request({
+				method:"post",
+				url:"page.php",
+				data:"page="+ipage,
+				callback:function(res){
+					//拿到服务器返回的数据
+					//显示到ul中
+				}
+			})
+		}
+		function createPageBar(){
+			str = '<span>共30条记录1/8</span><a href="javascript:goPage(cur+1)">下一页</a><a href="">尾页</a>';
+			return str;
+		}
+	</script>
+</body>
+</html>

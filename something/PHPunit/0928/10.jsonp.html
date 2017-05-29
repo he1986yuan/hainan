@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="js/common.js"></script>
+
+	<script type="text/javascript">
+		//定义函数
+		function JSON_CALLBACK(obj){
+			console.log(obj);
+			alert(obj.s);
+		}
+		function createScript(url){
+			//动态创建script标签
+			var oScript = document.createElement('script');
+			oScript.src = url;
+			oScript.type = 'text/javascript';
+			document.getElementsByTagName('head')[0].appendChild(oScript);
+		}
+	createScript('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=javas&cb=JSON_CALLBACK');
+	//createScript('data2.js');
+
+	</script>
+	<!-- <script type="text/javascript" src="index.php">
+		JSON_CALLBACK();
+	</script> -->
+</head>
+<body>
+
+</body>
+</html>

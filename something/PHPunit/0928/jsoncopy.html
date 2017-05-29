@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript">
+    function  JSON_CALLBACK(obj)
+    {
+      console.log(obj);
+    }
+    function createScript(url)
+    {
+      var oScript =document.createScript('script');
+      oScript.src =url;
+      oScript.type ='text/javascript';
+      document.getElementsByTagName('head')[0].appendChild(oScript);
+
+    }
+    createScript('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=javas&cb=JSON_CALLBACK');
+    </script>
+    <script type="text/javascript">
+      JSON_CALLBACK();
+    </script>
+  </head>
+  <body>
+
+
+  </body>
+</html>
