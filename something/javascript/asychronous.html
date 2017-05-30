@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <form class="" action="index.html" method="post">
+      <input id="x" value="">+<input id="y" value="">
+      <button type="button" id="calc">caculate</button>
+
+    </form>
+  </head>
+  <body>
+
+  </body>
+  <script type="text/javascript">
+  'use strict';
+  var $btn =$('#calc');
+  try{
+    $btn.click(function(){
+      x=parseFloat($('#X').val()),
+      y=parseFloat($('#y').val()),
+      r;
+      if(isNaN(x)||isNaN(y)){
+        throw new Error('error');
+      }
+      r=x+y;
+      alert('result'+r);
+    });
+  }catch (e){
+    alert('error');
+  }
+
+  </script>
+</html>
